@@ -6,10 +6,25 @@ import skimage.io as io
 import matplotlib.pyplot as plt
 import os
 
-dataDir='../'
+import torch
+from torch.utils.data import DataLoader, Dataset, Subset
+from torchvision import transforms
+from base.constants import *
+from base.helpers import *
+#from src.base.vizwiz_eval_cap.eval import VizWizEvalCap
+#from dataset import DemoDataset   ## This is a local import from dataset.pyA
+from tqdm import tqdm
+from transformers import AutoProcessor
+from transformers import AutoModelForCausalLM
+from PIL import Image
+import matplotlib.pyplot as plt
+import os
+import json
+
+dataDir='/projectnb/ds598/projects/VizWiz-VQA-ds598/data'
 split = 'train'
-annFile='%s/Annotations/%s.json'%(dataDir, split)
-imgDir = '%s/Images/' %dataDir
+annFile='%s/annotations/%s.json'%(dataDir, split)
+imgDir = '%s/train/' %dataDir
 
 # initialize VQA api for QA annotations
 vqa=VQA(annFile)
